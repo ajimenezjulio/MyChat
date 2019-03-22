@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E42480B7D880D92D7EC3A2B /* Pods_myChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2638F61A5F52709316B42F1 /* Pods_myChat.framework */; };
+		F441D6C022457C74001CF64D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F441D6BF22457C74001CF64D /* GoogleService-Info.plist */; };
 		F45516A822455E9000F22094 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45516A722455E9000F22094 /* AppDelegate.swift */; };
 		F45516AF22455E9100F22094 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F45516AE22455E9100F22094 /* Assets.xcassets */; };
 		F45516B222455E9100F22094 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F45516B022455E9100F22094 /* LaunchScreen.storyboard */; };
@@ -19,6 +20,7 @@
 		1AC66F67533A1A2CC02EEE22 /* Pods-myChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myChat.debug.xcconfig"; path = "Target Support Files/Pods-myChat/Pods-myChat.debug.xcconfig"; sourceTree = "<group>"; };
 		4CF3371872440D2103B629D4 /* Pods-myChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myChat.release.xcconfig"; path = "Target Support Files/Pods-myChat/Pods-myChat.release.xcconfig"; sourceTree = "<group>"; };
 		A2638F61A5F52709316B42F1 /* Pods_myChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F441D6BF22457C74001CF64D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F45516A422455E9000F22094 /* myChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45516A722455E9000F22094 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F45516AE22455E9100F22094 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,7 +48,6 @@
 				1AC66F67533A1A2CC02EEE22 /* Pods-myChat.debug.xcconfig */,
 				4CF3371872440D2103B629D4 /* Pods-myChat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -85,6 +86,7 @@
 				F45516B922455EC100F22094 /* Main.storyboard */,
 				F45516B022455E9100F22094 /* LaunchScreen.storyboard */,
 				F45516B322455E9100F22094 /* Info.plist */,
+				F441D6BF22457C74001CF64D /* GoogleService-Info.plist */,
 			);
 			path = myChat;
 			sourceTree = "<group>";
@@ -150,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F45516BA22455EC100F22094 /* Main.storyboard in Resources */,
+				F441D6C022457C74001CF64D /* GoogleService-Info.plist in Resources */,
 				F45516B222455E9100F22094 /* LaunchScreen.storyboard in Resources */,
 				F45516AF22455E9100F22094 /* Assets.xcassets in Resources */,
 			);
