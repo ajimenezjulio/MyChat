@@ -7,15 +7,38 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    // Variable for autologin
+    var authListener: AuthStateDidChangeListenerHandle?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
+        
+        // Listen when authentication states changes
+        authListener = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            
+            // We just need to call it once at the beginning so remove the listener
+            Auth.auth().removeStateDidChangeListener(self.authListener!)
+            
+            // Check if we have an user
+            if user != nil {
+                // Check if the user is stored locally
+                if UserDefaults.standard.object(forKey: kCURRENTUSER) != nil {
+                    // Move to the main thread and go to the app
+                    DispatchQueue.main.async {
+                        self.goToApp()
+                    }
+                    
+                }
+            }
+        })
+        
         return true
     }
 
@@ -40,7 +63,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    
+    // MARK: GoToApp
+    func goToApp() {
+        // Notification of user logged in
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: USER_DID_LOGIN_NOTIFICATION), object: nil, userInfo: [kUSERID: FUser.currentId()])
+        
+        let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainApplication") as! UITabBarController
+        // As AppDelegate is not a View Controller we need to use window.rootViewController
+        // and not self.present function
+        self.window?.rootViewController = mainView
+    }
 
 }
 
