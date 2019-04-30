@@ -33,7 +33,7 @@ class IncomingMessage {
         case kPICTURE:
             message = createPictureMessage(messageDictionary: messageDictionary)
         case kVIDEO:
-            print("Create video message")
+            message = createVideoMessage(messageDictionary: messageDictionary)
         case kAUDIO:
             print("Create audio message")
         case kLOCATION:
@@ -112,6 +112,54 @@ class IncomingMessage {
                 // Refresh the view
                 self.collectionView.reloadData()
             }
+        }
+        // Return the message
+        return JSQMessage(senderId: userId, senderDisplayName: name, date: date, media: mediaItem)
+    }
+    
+    func createVideoMessage(messageDictionary: NSDictionary) -> JSQMessage {
+        let name = messageDictionary[kSENDERNAME] as? String
+        let userId = messageDictionary[kSENDERID] as? String
+        
+        // Check if we already have a date value
+        var date: Date!
+        
+        if let created = messageDictionary[kDATE] {
+            // If the date characters are different from 14 (our date format), then create a new one
+            if (created as! String).count != 14 {
+                date = Date()
+            } else {
+                // Convert from string to date
+                date = dateFormatter().date(from: created as! String)
+            }
+        } else {
+            date = Date()
+        }
+        
+        // Get video url
+        let videoURL = NSURL(fileURLWithPath: messageDictionary[kVIDEO] as! String)
+        
+        // Creating a video message object
+        let mediaItem = VideoMessage(withFileURL: videoURL, maskOutgoing: returnOutgoingStatusForUser(senderId: userId!))
+        
+        // Download image
+        downloadVideo(videoUrl: messageDictionary[kVIDEO] as! String) { (isReadyToPlay, fileName) in
+            // Get the fileUrl and update the status
+            let url = NSURL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
+            mediaItem.status = kSUCCESS
+            mediaItem.fileURL = url
+            
+            // Get the thumbnail
+            imageFromData(pictureData: messageDictionary[kPICTURE] as! String, withBlock: { (image) in
+                // Check for the image and assign it
+                if image != nil {
+                    mediaItem.image = image!
+                    // Refresh view
+                    self.collectionView.reloadData()
+                }
+            })
+            // Also refresh when we set our video (loading animation needs to dissapear)
+            self.collectionView.reloadData()
         }
         // Return the message
         return JSQMessage(senderId: userId, senderDisplayName: name, date: date, media: mediaItem)
